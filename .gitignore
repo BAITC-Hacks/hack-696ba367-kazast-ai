@@ -1,0 +1,8 @@
+# Local environment variables and API credentials
+.env
+.env.*
+!.env.example
+
+# Node.js dependencies and build output
+node_modules/
+dist/
