@@ -12,6 +12,8 @@ export default {
   components: { 'form-field': form_field, 'form-section': form_section, 'feedback-notice': feedback_notice, 'task-readiness': task_readiness, 'publication-panel': publication_panel },
   setup() {
     const store = useStore();
+    // Opening the business editor explicitly enters the business demo workspace.
+    if (store.state.proposals.role !== 'business') store.commit('proposals/set_role','business');
     const route = useRoute();
     const router = useRouter();
     const task_state = computed(() => store.state.tasks);

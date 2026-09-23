@@ -22,6 +22,8 @@
           <p class="field-help">Недостающие сведения можно уточнить у представителя бизнеса по контакту в карточке.</p>
         </aside>
       </div>
+      <proposal-workspace v-if="$store.state.proposals.role==='student'" :task_id="details.task.id" mode="form" />
+      <section v-else class="surface page_panel"><h2>Предложения команд</h2><p>Просмотр и выбор доступны владельцу этой задачи.</p><RouterLink class="btn btn-primary" :to="{name:'task_proposals',params:{id:details.task.id}}">Посмотреть отклики</RouterLink></section>
     </template>
   </section>
 </template>

@@ -4,9 +4,10 @@ import { useRoute } from 'vue-router';
 import task_information from '../components/task_information/task_information.vue';
 import feedback_notice from '../components/feedback_notice/feedback_notice.vue';
 import { field_groups, rating_criteria } from '../domain/task_fields.js';
+import proposal_workspace from '../components/proposal_workspace/proposal_workspace.vue';
 
 export default {
-  components: { 'task-information': task_information, 'feedback-notice': feedback_notice },
+  components: { 'task-information': task_information, 'feedback-notice': feedback_notice, 'proposal-workspace': proposal_workspace },
   setup() {
     const store = useStore();
     const route = useRoute();

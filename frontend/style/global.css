@@ -644,3 +644,9 @@ p {
 .task_information dl { margin-bottom: 0; }
 .task_information dt { font-weight: 600; margin-top: 24px; }
 .task_information dd { margin: 8px 0 0; white-space: pre-wrap; color: var(--theme-color-text-secondary); line-height: 1.75; }
+
+.demo_role { min-width: 130px; padding-block: 8px; }
+.proposal_card { display: grid; justify-items: start; gap: 16px; }
+.proposal_card dl { margin: 0; width: 100%; }
+.proposal_actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.proposal_task_link { text-decoration: underline; }
