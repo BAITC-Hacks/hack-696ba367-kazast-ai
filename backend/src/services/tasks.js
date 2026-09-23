@@ -1,3 +1,4 @@
+import { latestClarification } from './clarification-state.js';
 export const cardFields = [
   'title', 'industry', 'context', 'need', 'users_description', 'data_materials',
   'constraints_description', 'expected_result', 'success_criteria', 'contact',
@@ -53,7 +54,7 @@ export function validateBody(body, mode) {
 
 const cardOf = (task) => Object.fromEntries(cardFields.map(key => [key, task[key]]));
 const sameCard = (a, b) => cardFields.every(key => a[key] === b[key]);
-async function latestConfirmation(db, taskId) {
+export async function latestConfirmation(db, taskId) {
   const { rows: [revision] } = await db.query(`SELECT r.*, readiness_breakdown(card) AS breakdown,
     CASE WHEN score < 40 THEN 'draft' WHEN score < 70 THEN 'working'
          WHEN score < 90 THEN 'ready' ELSE 'priority' END AS readiness_level,
@@ -61,18 +62,18 @@ async function latestConfirmation(db, taskId) {
     FROM task_revisions r WHERE task_id=$1 ORDER BY confirmed_at DESC, id DESC LIMIT 1`, [taskId]);
   return revision ?? null;
 }
-async function ownedTask(db, id, userId) {
+export async function ownedTask(db, id, userId) {
   // The same lock serializes edits and confirmations of a task.
   const { rows: [task] } = await db.query('SELECT * FROM tasks WHERE id=$1 FOR UPDATE', [id]);
   if (!task) throw new ApiError(404, 'TASK_NOT_FOUND', 'Задача не найдена.');
   if (task.owner_id !== userId) throw new ApiError(403, 'FORBIDDEN', 'Доступ разрешён только владельцу задачи.');
   return task;
 }
-function checkVersion(task, expected) {
+export function checkVersion(task, expected) {
   if (task.version !== expected) throw new ApiError(409, 'VERSION_CONFLICT',
     'Задача уже изменена. Загрузите её заново перед выполнением действия.', { current_version: task.version });
 }
-function representation(task, confirmation) {
+export function representation(task, confirmation) {
   return {
     task,
     confirmation,
@@ -120,7 +121,7 @@ export function taskService(db) {
     get(id, userId) {
       return transaction(db, async client => {
         const task = await ownedTask(client, id, userId);
-        return representation(task, await latestConfirmation(client, id));
+        return { ...representation(task, await latestConfirmation(client, id)), clarification: await latestClarification(client, id) };
       });
     },
     edit(id, userId, values, expectedVersion) {
@@ -130,7 +131,7 @@ export function taskService(db) {
         const fields = Object.keys(values);
         const { rows: [task] } = await client.query(`UPDATE tasks SET ${fields.map((key,i) => `${key}=$${i+2}`).join(',')}
           WHERE id=$1 RETURNING *`, [id, ...Object.values(values)]);
-        return representation(task, await latestConfirmation(client, id));
+        return { ...representation(task, await latestConfirmation(client, id)), clarification: await latestClarification(client, id) };
       });
     },
     confirm(id, userId, expectedVersion) {

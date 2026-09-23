@@ -1,8 +1,8 @@
 const api_url = (import.meta.env?.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
 
-export async function api_request(path, { method = 'GET', body, user_id } = {}) {
+export async function api_request(path, { method = 'GET', body, user_id, timeout_ms = 15000 } = {}) {
   const controller = new AbortController();
-  const timeout_id = setTimeout(() => controller.abort(), 15000);
+  const timeout_id = setTimeout(() => controller.abort(), timeout_ms);
   try {
     const response = await fetch(`${api_url}/api${path}`, {
       method,

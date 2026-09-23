@@ -1,10 +1,11 @@
+import { clarificationService, validateClarificationBody } from '../services/clarifications.js';
 import { Router } from 'express';
 import { demoAuth } from '../middleware/demo-auth.js';
 import { taskService, validateBody, validateUuid } from '../services/tasks.js';
 import { getCatalog, getPublishedTask } from '../services/catalog.js';
 import { getMyTasks } from '../services/my-tasks.js';
 
-export function tasksRouter(db, demoAuthEnabled) {
+export function tasksRouter(db, demoAuthEnabled, clarificationAi) {
   const router = Router();
   const service = taskService(db);
   router.get('/', async (req, res) => res.json(await getCatalog(db, req.query)));
@@ -34,5 +35,13 @@ export function tasksRouter(db, demoAuthEnabled) {
     validateBody(req.body, 'publish');
     res.json(await service.publish(id, req.user.id, req.body.expected_version));
   });
+  const clarification = clarificationService(db, clarificationAi);
+  for (const [kind,method] of [['questions','post'],['answers','patch'],['card','post']]) {
+    router[method]('/:id/clarification/'+kind, async (req,res) => {
+      const id=validateUuid(req.params.id);
+      validateClarificationBody(req.body,kind);
+      res.json(await clarification[kind](id,req.user.id,req.body));
+    });
+  }
   return router;
 }

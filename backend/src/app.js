@@ -4,11 +4,11 @@ import { pool } from './db/pool.js';
 import { apiRouter } from './routes/index.js';
 import { ApiError } from './services/tasks.js';
 
-export function createApp({ db = pool, demoAuthEnabled = process.env.DEMO_AUTH_ENABLED === 'true' && process.env.NODE_ENV !== 'production' } = {}) {
+export function createApp({ db = pool, clarificationAi, demoAuthEnabled = process.env.DEMO_AUTH_ENABLED === 'true' && process.env.NODE_ENV !== 'production' } = {}) {
   const app = express();
   app.use(cors());
   app.use(express.json({ limit: '256kb' }));
-  app.use('/api', apiRouter(db, demoAuthEnabled));
+  app.use('/api', apiRouter(db, demoAuthEnabled, clarificationAi));
   app.use((_req, _res, next) => next(new ApiError(404, 'NOT_FOUND', 'Маршрут не найден.')));
   app.use((error, _req, res, _next) => {
     if (error instanceof ApiError) {

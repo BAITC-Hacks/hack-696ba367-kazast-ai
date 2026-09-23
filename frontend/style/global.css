@@ -650,3 +650,10 @@ p {
 .proposal_card dl { margin: 0; width: 100%; }
 .proposal_actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .proposal_task_link { text-decoration: underline; }
+
+.clarification_panel, .clarification_questions { display: grid; gap: 1rem; }
+.clarification_panel { padding: 1.5rem; }
+.clarification_panel > .btn { justify-self: start; }
+.clarification_preview { display: grid; gap: .5rem; overflow-wrap: anywhere; }
+.clarification_preview dt { font-weight: 600; margin-top: .75rem; }
+.clarification_preview dd { margin: 0; white-space: pre-wrap; color: var(--theme-color-text-secondary); }

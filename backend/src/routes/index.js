@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { tasksRouter } from './tasks.js';
 import { proposalsRouter } from './proposals.js';
 
-export function apiRouter(db, demoAuthEnabled) {
+export function apiRouter(db, demoAuthEnabled, clarificationAi) {
   const router = Router();
   router.get('/health', async (_request, response) => {
     try {
@@ -13,6 +13,6 @@ export function apiRouter(db, demoAuthEnabled) {
     }
   });
   router.use(proposalsRouter(db, demoAuthEnabled));
-  router.use('/tasks', tasksRouter(db, demoAuthEnabled));
+  router.use('/tasks', tasksRouter(db, demoAuthEnabled, clarificationAi));
   return router;
 }

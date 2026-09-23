@@ -29,13 +29,14 @@
     <div v-if="task_state.task || (!$route.params.id && task_state.pending_action !== 'load')" class="task_columns">
       <form class="task_form" @submit.prevent="save_task">
         <form-section :title="task_state.task ? 'Исходное описание' : 'Какая помощь вам нужна?'" description="Не нужно сразу продумывать всё. Начните с проблемы, которую хотите решить.">
-          <form-field :field="original_field" :value="task_state.draft.original_description" :is_disabled="is_busy"
+          <form-field :field="original_field" :value="task_state.draft.original_description" :is_disabled="is_busy || answers_dirty"
             :error="task_state.error?.details?.original_description" @update="update_field('original_description', $event)" />
         </form-section>
+        <clarification-panel v-if="task_state.task" />
         <template v-if="task_state.task">
           <form-section v-for="group in field_groups" :key="group.title" :title="group.title" :description="group.description">
             <form-field v-for="field in group.fields" :key="field.key" :field="field" :value="task_state.draft[field.key]"
-              :error="task_state.error?.details?.[field.key]" :is_disabled="is_busy" @update="update_field(field.key, $event)" />
+              :error="task_state.error?.details?.[field.key]" :is_disabled="is_busy || answers_dirty" @update="update_field(field.key, $event)" />
           </form-section>
         </template>
         <div class="surface task_actions">
