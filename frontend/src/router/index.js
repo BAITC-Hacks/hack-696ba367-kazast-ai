@@ -3,6 +3,7 @@ import AppLayout from '../components/app_layout.vue';
 import HomePage from '../pages/home_page.vue';
 import TaskCatalogPage from '../pages/task_catalog_page.vue';
 import TaskCreatePage from '../pages/task_create_page.vue';
+import TaskDetailPage from '../pages/task_detail_page.vue';
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -25,6 +26,16 @@ export const router = createRouter({
           path: 'tasks/new',
           name: 'task_create',
           component: TaskCreatePage,
+        },
+        {
+          path: 'tasks/:id/edit',
+          name: 'task_edit',
+          component: TaskCreatePage,
+        },
+        {
+          path: 'tasks/:id',
+          name: 'task_detail',
+          component: TaskDetailPage,
         },
       ],
     },
