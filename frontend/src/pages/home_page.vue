@@ -1,6 +1,15 @@
 <template>
   <div class="page_stack home_page">
     <section class="home_hero" aria-labelledby="home_title">
+      <!-- Decorative only: the content remains readable and interactive. -->
+      <div class="home_illustrations" aria-hidden="true">
+        <span class="home_illustration home_illustration_book"></span>
+        <span class="home_illustration home_illustration_book_second"></span>
+        <span class="home_illustration home_illustration_pen"></span>
+        <span class="home_illustration home_illustration_apple"></span>
+        <span class="home_illustration home_illustration_ai">AI</span>
+        <span class="home_illustration home_illustration_ala">ALA</span>
+      </div>
       <div class="home_intro">
         <p class="home_eyebrow">БИЗНЕС + СТУДЕНЧЕСКИЕ КОМАНДЫ</p>
         <h1 id="home_title" class="page_title">От бизнес-проблемы — к готовому решению</h1>
