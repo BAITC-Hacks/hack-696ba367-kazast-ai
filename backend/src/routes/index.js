@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { tasksRouter } from './tasks.js';
+import { proposalsRouter } from './proposals.js';
 
 export function apiRouter(db, demoAuthEnabled) {
   const router = Router();
@@ -11,6 +12,7 @@ export function apiRouter(db, demoAuthEnabled) {
       response.status(503).json({ status: 'error', service: 'kazast-ai-api', database: 'unavailable' });
     }
   });
+  router.use(proposalsRouter(db, demoAuthEnabled));
   router.use('/tasks', tasksRouter(db, demoAuthEnabled));
   return router;
 }

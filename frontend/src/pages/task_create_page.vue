@@ -48,6 +48,7 @@
       </form>
 
       <aside class="task_sidebar">
+        <RouterLink v-if="task_state.task" class="btn btn-outline" :to="{ name: 'task_proposals', params: { task_id: task_state.task.id } }">Предложения команд</RouterLink>
         <publication-panel v-if="task_state.task" :task_id="task_state.task.id" :is_published="is_published"
           :is_current="is_publication_current" :is_dirty="is_dirty" :has_unconfirmed_changes="task_state.has_unconfirmed_changes"
           :can_publish="can_publish" :is_publishing="task_state.pending_action === 'publish'" :has_conflict="has_conflict"

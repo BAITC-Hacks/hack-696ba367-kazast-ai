@@ -11,6 +11,10 @@
         <p class="section_kicker">{{ details.task.industry || 'БИЗНЕС-ЗАДАЧА' }}</p>
         <h1 class="page_title">{{ details.task.card.title }}</h1>
         <span class="status_badge" :class="`readiness_${details.task.readiness_level}`">{{ level_label }}</span>
+        <div class="interaction_actions">
+          <RouterLink class="btn btn-primary" :to="{ name: 'proposal_create', params: { task_id: details.task.id } }">Откликнуться</RouterLink>
+          <RouterLink v-if="proposal_context?.is_owner" class="btn btn-outline" :to="{ name: 'task_proposals', params: { task_id: details.task.id } }">Предложения команд</RouterLink>
+        </div>
       </header>
       <div class="task_columns">
         <div class="task_form"><task-information v-for="group in groups" :key="group.title" :title="group.title" :fields="group.fields" :card="details.task.card" /></div>

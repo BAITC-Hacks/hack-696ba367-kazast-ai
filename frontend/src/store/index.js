@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import proposals from './modules/proposals.js';
 import app_status from './modules/app_status.js';
 import tasks from './modules/tasks.js';
 import catalog from './modules/catalog.js';
@@ -11,5 +12,6 @@ export const store = createStore({
     tasks,
     catalog,
     published_task,
+    proposals,
   },
 });

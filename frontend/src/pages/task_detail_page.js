@@ -1,4 +1,4 @@
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 import task_information from '../components/task_information/task_information.vue';
@@ -10,6 +10,16 @@ export default {
   setup() {
     const store = useStore();
     const route = useRoute();
+    const proposal_context = ref(null);
+    watch(() => route.params.id, async (id, _previous, on_cleanup) => {
+      let is_current = true;
+      on_cleanup(() => { is_current = false; });
+      proposal_context.value = null;
+      try {
+        const context = await store.dispatch('proposals/load_context', id);
+        if (is_current) proposal_context.value = context;
+      } catch { /* Public task remains available without demo access. */ }
+    }, { immediate: true });
     const details = computed(() => store.state.published_task);
     const groups = field_groups.map(group => ({ ...group, fields: group.fields.filter(field => !['title', 'industry'].includes(field.key)) }));
     const level_label = computed(() => ({ draft: 'Требует уточнения', working: 'Рабочая', ready: 'Готовая', priority: 'Приоритетная' }[details.value.task?.readiness_level]));
@@ -18,6 +28,6 @@ export default {
     ) }));
     const load_task = () => store.dispatch('published_task/load_task', route.params.id);
     watch(() => route.params.id, load_task, { immediate: true });
-    return { details, groups, rating_criteria, level_label, catalog_location, load_task };
+    return { details, groups, rating_criteria, level_label, catalog_location, load_task, proposal_context };
   },
 };

@@ -1,5 +1,32 @@
 # API задач
 
+## Предложения команд
+
+Используются существующие PostgreSQL и demo-auth (`X-User-Id`).
+Прежние методы задач по-прежнему требуют business.
+
+| Метод | Путь относительно `/api` | Доступ | Ответ |
+|---|---|---|---|
+| GET | `/tasks/:id/proposals/context` | student/business | `{ user, teams, is_owner }` |
+| POST | `/tasks/:id/proposals` | student в команде | 201 `{ proposal }` |
+| GET | `/tasks/:id/proposals` | business owner | `{ proposals }` |
+| PATCH | `/proposals/:id/status` | business owner | `{ proposal }` |
+
+POST: `idea`, `plan`, `timeline` — непустые строки до 10000 символов;
+необязательные `prototype_url` — HTTP(S) до 2000 символов (пустой → NULL),
+`team_id` — UUID своей команды, можно опустить при единственной команде.
+Членство проверяется через `team_members`; задача должна быть опубликована.
+Статус создаваемого предложения всегда pending.
+
+PATCH принимает только `status: accepted | rejected`, записывает demo user
+в `decided_by` и серверный `decided_at`. Пересмотр решения разрешён.
+Количество предложений и accepted не ограничено. Список включает `team_name`
+и все статусы, сортировка `created_at DESC, id`. Context не раскрывает черновик.
+
+Ошибки: 400 — поля/UUID/статус; 401 — demo user; 403 — роль/владелец/членство;
+404 — задача/предложение; 409 `TASK_NOT_PUBLISHED`; 503 — выключенный demo-auth.
+Схема и подробности: [Interaction Module](../INTERACTION_MODULE.md).
+
 Реализованы создание, чтение владельцем, частичное редактирование, ручное подтверждение и публикация карточки. Базовый URL при запуске через Docker: `http://localhost:3000/api`.
 
 ## Доступ в локальном MVP

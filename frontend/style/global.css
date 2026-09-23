@@ -256,6 +256,28 @@ p {
   font-weight: 700;
 }
 
+/* Proposal forms and cards */
+.interaction_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.proposal_form {
+  justify-items: stretch;
+}
+
+.proposal_text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.proposal_card {
+  min-width: 0;
+  align-content: start;
+  overflow-wrap: anywhere;
+}
+
 /* Shared welcome / empty-state layout */
 .welcome_layout {
   display: grid;

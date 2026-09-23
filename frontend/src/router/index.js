@@ -4,6 +4,8 @@ import HomePage from '../pages/home_page.vue';
 import TaskCatalogPage from '../pages/task_catalog_page.vue';
 import TaskCreatePage from '../pages/task_create_page.vue';
 import TaskDetailPage from '../pages/task_detail_page.vue';
+import ProposalCreatePage from '../pages/proposal_create_page.vue';
+import TaskProposalsPage from '../pages/task_proposals_page.vue';
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -12,6 +14,8 @@ export const router = createRouter({
       path: '/',
       component: AppLayout,
       children: [
+        { path: 'tasks/:task_id/proposals/new', name: 'proposal_create', component: ProposalCreatePage },
+        { path: 'tasks/:task_id/proposals', name: 'task_proposals', component: TaskProposalsPage },
         {
           path: '',
           name: 'home',
