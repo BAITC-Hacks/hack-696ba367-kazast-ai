@@ -556,6 +556,217 @@ p {
   }
 }
 
+/* Home: calm illustrations and soft surfaces, derived from the active theme. */
+.home_page {
+  --home-ink-soft: color-mix(in srgb, var(--theme-brand-primary-strong) 48%, var(--theme-color-text));
+  --home-lime-soft: color-mix(in srgb, var(--theme-brand-primary) 34%, var(--theme-color-surface));
+  --home-highlight: var(--theme-color-surface);
+  gap: clamp(36px, 5vw, 68px);
+}
+
+.home_hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 430px;
+  padding: clamp(32px, 5vw, 64px);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--theme-brand-primary) 18%, var(--theme-color-border));
+  border-radius: clamp(24px, 3vw, 38px);
+  background:
+    radial-gradient(circle at 97% 5%, color-mix(in srgb, var(--theme-brand-primary) 20%, transparent), transparent 34%),
+    radial-gradient(circle at 4% 100%, color-mix(in srgb, var(--theme-brand-primary) 10%, transparent), transparent 30%),
+    var(--theme-color-surface-2);
+}
+
+.home_hero > :not(.home_illustrations) {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.home_intro {
+  justify-items: start;
+  gap: 19px;
+}
+
+.home_intro .page_title {
+  max-width: 13ch;
+  font-size: clamp(2.25rem, 4.4vw, 4.35rem);
+  line-height: 1.08;
+  letter-spacing: -0.052em;
+}
+
+.home_intro .page_description {
+  max-width: 53ch;
+}
+
+.home_eyebrow {
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--home-lime-soft);
+  color: var(--theme-color-text);
+  letter-spacing: 0.07em;
+}
+
+.home_principle,
+.home_step,
+.home_readiness,
+.home_audience {
+  border-color: color-mix(in srgb, var(--theme-brand-primary) 16%, var(--theme-color-border));
+  border-radius: 24px;
+  box-shadow: 0 12px 35px color-mix(in srgb, var(--theme-color-text) 6%, transparent);
+}
+
+.home_principle {
+  gap: 16px;
+  padding: clamp(22px, 3vw, 32px);
+  background: color-mix(in srgb, var(--theme-color-surface) 92%, var(--theme-brand-primary));
+}
+
+.home_principle .home_eyebrow { margin: 0; }
+.home_flow { gap: 10px; font-weight: 500; }
+.home_flow li { line-height: 1.5; }
+.home_flow li + li::before { margin-bottom: 7px; color: var(--theme-brand-primary-strong); }
+.home_section_heading .home_eyebrow,
+.home_audience .home_eyebrow { margin-bottom: 4px; }
+.home_steps { gap: 16px; }
+.home_step { gap: 14px; min-height: 205px; padding: 26px; }
+.home_step_number {
+  border-radius: 14px;
+  background: var(--home-lime-soft);
+  color: var(--theme-color-text);
+}
+.home_step p { line-height: 1.65; }
+.home_readiness { padding: clamp(24px, 3.5vw, 40px); }
+.home_level { border-top-width: 3px; }
+.home_audience { padding: clamp(24px, 3vw, 32px); }
+
+.home_illustrations {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  color: var(--home-ink-soft);
+}
+
+.home_illustration { position: absolute; display: block; }
+.home_illustration_book,
+.home_illustration_book_second {
+  width: 72px;
+  height: 94px;
+  border: 3px solid currentColor;
+  border-left-width: 10px;
+  border-radius: 6px 12px 12px 6px;
+  background: linear-gradient(115deg, var(--home-highlight) 8%, var(--home-lime-soft) 75%);
+  box-shadow: 5px 6px 0 color-mix(in srgb, var(--home-ink-soft) 14%, transparent);
+  opacity: 0.5;
+}
+.home_illustration_book::after,
+.home_illustration_book_second::after {
+  content: "";
+  position: absolute;
+  top: 17px;
+  right: 12px;
+  left: 12px;
+  border-top: 3px solid currentColor;
+  opacity: 0.65;
+}
+.home_illustration_book { top: 5%; right: 4%; transform: rotate(16deg); }
+.home_illustration_book_second { bottom: 2%; right: 28%; transform: rotate(-18deg) scale(0.68); opacity: 0.32; }
+
+.home_illustration_pen {
+  top: 12%;
+  left: 48%;
+  width: 13px;
+  height: 92px;
+  border: 2px solid currentColor;
+  border-radius: 9px 9px 3px 3px;
+  background: linear-gradient(90deg, var(--home-highlight) 25%, var(--home-lime-soft) 25%);
+  transform: rotate(35deg);
+  opacity: 0.45;
+}
+.home_illustration_pen::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: -2px;
+  width: 11px;
+  height: 15px;
+  background: var(--home-highlight);
+  border: 2px solid currentColor;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.home_illustration_apple {
+  bottom: 5%;
+  left: 3%;
+  width: 68px;
+  height: 62px;
+  border: 3px solid currentColor;
+  border-radius: 44% 44% 49% 49%;
+  background: radial-gradient(circle at 30% 25%, var(--home-highlight) 0 16%, var(--home-lime-soft) 60%);
+  box-shadow: 5px 6px 0 color-mix(in srgb, var(--home-ink-soft) 13%, transparent);
+  transform: rotate(-12deg);
+  opacity: 0.55;
+}
+.home_illustration_apple::before {
+  content: "";
+  position: absolute;
+  top: -19px;
+  left: 32px;
+  width: 3px;
+  height: 18px;
+  background: currentColor;
+  transform: rotate(22deg);
+}
+.home_illustration_apple::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 39px;
+  width: 22px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-radius: 100% 0 100% 0;
+  background: var(--home-lime-soft);
+  transform: rotate(-25deg);
+}
+.home_illustration_ai,
+.home_illustration_ala {
+  color: var(--theme-brand-primary-strong);
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  line-height: 1;
+  opacity: 0.16;
+}
+.home_illustration_ai { top: 4%; right: 31%; font-size: clamp(4rem, 9vw, 8rem); transform: rotate(-9deg); }
+.home_illustration_ala { bottom: 4%; left: 37%; font-size: clamp(3rem, 7vw, 6rem); transform: rotate(7deg); }
+
+@media (max-width: 960px) {
+  .home_hero { padding: clamp(26px, 5vw, 48px); }
+  .home_intro .page_title { max-width: 17ch; }
+  .home_illustration_pen { left: auto; right: 14%; }
+  .home_illustration_ai { right: 6%; }
+  .home_illustration_ala { left: auto; right: 15%; }
+}
+
+@media (max-width: 640px) {
+  .home_hero { gap: 24px; padding: 26px 20px; border-radius: 24px; }
+  .home_intro .page_title { font-size: clamp(2.1rem, 9vw, 3rem); }
+  .home_actions { width: 100%; }
+  .home_actions .btn { flex: 1 1 180px; }
+  .home_illustration_book { right: -22px; top: 3%; opacity: 0.22; }
+  .home_illustration_apple { left: -25px; bottom: 42%; opacity: 0.2; }
+  .home_illustration_ai { top: 8%; right: 13%; opacity: 0.09; }
+  .home_illustration_book_second,
+  .home_illustration_pen,
+  .home_illustration_ala { display: none; }
+  .home_step { min-height: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
