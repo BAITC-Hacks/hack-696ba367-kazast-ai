@@ -1,0 +1,110 @@
+/* =========================================================
+   AI BUSINESS UI — DESIGN TOKENS
+   Theme switching:
+   <html data-theme="light">  or  <html data-theme="dark">
+   ========================================================= */
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --theme-brand-primary: #b8f36a;
+  --theme-brand-primary-hover: #c8f58a;
+  --theme-brand-primary-active: #9edc4f;
+  --theme-brand-primary-strong: #78b62f;
+  --theme-brand-on-primary: #15210d;
+
+  --theme-brand-secondary: #eaf8d9;
+  --theme-brand-secondary-strong: #d5efb8;
+
+  /* Light theme — neutrals */
+  --theme-color-bg: #f7faf6;
+  --theme-color-surface: #ffffff;
+  --theme-color-surface-2: #f0f5ee;
+  --theme-color-surface-3: #e8eee5;
+  --theme-color-overlay: rgb(15 23 14 / 0.44);
+
+  --theme-color-text: #101610;
+  --theme-color-text-secondary: #566055;
+  --theme-color-text-muted: #7a8478;
+  --theme-color-text-inverse: #ffffff;
+
+  --theme-color-border: #dce5d9;
+  --theme-color-border-strong: #cbd7c7;
+  --theme-color-focus: #78b62f;
+
+  /* Status */
+  --theme-color-success: #4f9d2e;
+  --theme-color-success-bg: #eaf7e4;
+  --theme-color-warning: #c58a18;
+  --theme-color-warning-bg: #fff6dc;
+  --theme-color-danger: #c54848;
+  --theme-color-danger-hover: #af3737;
+  --theme-color-danger-active: #982d2d;
+  --theme-color-danger-bg: #fdeaea;
+  --theme-color-info: #3478a8;
+  --theme-color-info-bg: #e8f3fb;
+
+  /* Effects */
+  --shadow-xs: 0 1px 2px rgb(16 22 16 / 0.05);
+  --shadow-sm: 0 4px 14px rgb(16 22 16 / 0.07);
+  --shadow-md: 0 12px 30px rgb(16 22 16 / 0.10);
+
+  /* Shape */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 260ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Same brand, tuned for dark surfaces */
+  --theme-brand-primary: #b8f36a;
+  --theme-brand-primary-hover: #c8f58a;
+  --theme-brand-primary-active: #9edc4f;
+  --theme-brand-primary-strong: #8dcc3d;
+  --theme-brand-on-primary: #10170a;
+
+  --theme-brand-secondary: #24351f;
+  --theme-brand-secondary-strong: #31472a;
+
+  /* Deep navy / near-black */
+  --theme-color-bg: #071018;
+  --theme-color-surface: #0c1720;
+  --theme-color-surface-2: #101e28;
+  --theme-color-surface-3: #162631;
+  --theme-color-overlay: rgb(0 0 0 / 0.62);
+
+  --theme-color-text: #f1f6f0;
+  --theme-color-text-secondary: #b5c1b4;
+  --theme-color-text-muted: #7f8c80;
+  --theme-color-text-inverse: #08100a;
+
+  --theme-color-border: #23333d;
+  --theme-color-border-strong: #334752;
+  --theme-color-focus: #b8f36a;
+
+  --theme-color-success: #82d45c;
+  --theme-color-success-bg: #172b14;
+  --theme-color-warning: #e1aa45;
+  --theme-color-warning-bg: #312611;
+  --theme-color-danger: #f07a7a;
+  --theme-color-danger-hover: #f58e8e;
+  --theme-color-danger-active: #df6969;
+  --theme-color-danger-bg: #35191b;
+  --theme-color-info: #73b4de;
+  --theme-color-info-bg: #142a39;
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.22);
+  --shadow-sm: 0 6px 18px rgb(0 0 0 / 0.24);
+  --shadow-md: 0 16px 38px rgb(0 0 0 / 0.34);
+}

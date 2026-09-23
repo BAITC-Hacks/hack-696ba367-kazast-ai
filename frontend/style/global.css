@@ -1,0 +1,394 @@
+/* =========================================================
+   GLOBAL / RESET / LAYOUT FOUNDATION
+   Loaded after tokens.css and controls.css
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--theme-color-bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--theme-color-bg);
+  color: var(--theme-color-text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background var(--duration-slow) var(--ease-standard),
+              color var(--duration-slow) var(--ease-standard);
+}
+
+::selection {
+  background: var(--theme-brand-primary);
+  color: var(--theme-brand-on-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:not(.btn):hover {
+  color: var(--theme-brand-primary-strong);
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Typography */
+.h1,
+.h2,
+.h3,
+.h4,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--theme-color-text);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+p {
+  margin: 0;
+  color: var(--theme-color-text-secondary);
+}
+
+.text-muted {
+  color: var(--theme-color-text-muted);
+}
+
+.text-secondary {
+  color: var(--theme-color-text-secondary);
+}
+
+.text-brand {
+  color: var(--theme-brand-primary-strong);
+}
+
+/* Surfaces */
+.surface {
+  background: var(--theme-color-surface);
+  border: 1px solid var(--theme-color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.surface-flat {
+  background: var(--theme-color-surface-2);
+  border: 1px solid var(--theme-color-border);
+  border-radius: var(--radius-md);
+}
+
+/* Focus fallback for custom interactive elements */
+:where([tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--theme-color-focus) 34%, transparent);
+  outline-offset: 2px;
+}
+
+/* App shell */
+.app-shell {
+  min-height: 100vh;
+  background: var(--theme-color-bg);
+}
+
+.container {
+  width: min(100% - 32px, 1280px);
+  margin-inline: auto;
+}
+
+.app_header {
+  border-bottom: 1px solid var(--theme-color-border);
+  background: var(--theme-color-surface);
+}
+
+.app_header_inner {
+  display: flex;
+  min-height: 72px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.app_brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--theme-color-text);
+  font-weight: 800;
+}
+
+.brand_mark_small {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: var(--theme-brand-primary);
+  color: var(--theme-brand-on-primary);
+}
+
+.app_nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav_link {
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--theme-color-text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.nav_link.router-link-active {
+  background: var(--theme-color-surface-2);
+  color: var(--theme-color-text);
+}
+
+.app_main {
+  padding-block: 44px 72px;
+}
+
+.page_stack {
+  display: grid;
+  gap: 28px;
+}
+
+.page_heading {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  max-width: 760px;
+}
+
+.page_eyebrow {
+  margin-top: 0;
+}
+
+.page_title {
+  font-size: clamp(2rem, 6vw, 3rem);
+  letter-spacing: -0.04em;
+}
+
+.page_description {
+  max-width: 680px;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.feature_grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.feature_card {
+  display: flex;
+  min-height: 220px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 26px;
+}
+
+.feature_title {
+  font-size: 1.2rem;
+}
+
+.feature_description {
+  margin-top: 10px;
+  line-height: 1.65;
+}
+
+.feature_action {
+  margin-top: auto;
+}
+
+.page_panel {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  padding: 28px;
+}
+
+.empty_state {
+  max-width: 720px;
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.status_badge {
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--theme-color-info-bg);
+  color: var(--theme-color-info);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Shared welcome / empty-state layout */
+.welcome_layout {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.welcome_card {
+  width: min(100%, 520px);
+  padding: 48px;
+}
+
+.brand_mark {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  background: var(--theme-brand-primary);
+  color: var(--theme-brand-on-primary);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.eyebrow {
+  margin-top: 32px;
+  color: var(--theme-color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.welcome_title {
+  margin-top: 8px;
+  font-size: clamp(2.25rem, 8vw, 3rem);
+  letter-spacing: -0.045em;
+}
+
+.welcome_intro {
+  margin-top: 12px;
+  margin-bottom: 28px;
+  font-size: 1rem;
+}
+
+.api_status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 15px;
+  border: 1px solid var(--theme-color-border);
+  border-radius: var(--radius-md);
+  background: var(--theme-color-surface-2);
+  color: var(--theme-color-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status_dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: var(--radius-pill);
+  background: var(--theme-color-success);
+}
+
+.welcome_hint {
+  margin-top: 18px;
+  color: var(--theme-color-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* Theme transition helper.
+   Apply .theme-transition to a wrapper when switching manually.
+*/
+.theme-transition,
+.theme-transition * {
+  transition-duration: 220ms !important;
+  transition-timing-function: var(--ease-standard) !important;
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 20px, 1280px);
+  }
+
+  .welcome_layout {
+    padding: 16px;
+  }
+
+  .welcome_card {
+    padding: 32px 26px;
+  }
+
+  .app_header_inner {
+    min-height: 64px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 14px;
+    padding-block: 10px;
+  }
+
+  .app_nav {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header_action {
+    margin-left: auto;
+  }
+
+  .feature_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app_main {
+    padding-block: 30px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

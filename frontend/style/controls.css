@@ -1,6 +1,6 @@
 /* =========================================================
    DEFAULT BUTTONS + INPUTS
-   Requires 01-colors.css
+   Requires tokens.css
    ========================================================= */
 
 button,
@@ -19,11 +19,11 @@ button {
    ------------------------- */
 
 .btn {
-  --btn-bg: var(--color-surface);
-  --btn-text: var(--color-text);
-  --btn-border: var(--color-border);
-  --btn-bg-hover: var(--color-surface-2);
-  --btn-bg-active: var(--color-surface-3);
+  --btn-bg: var(--theme-color-surface);
+  --btn-text: var(--theme-color-text);
+  --btn-border: var(--theme-color-border);
+  --btn-bg-hover: var(--theme-color-surface-2);
+  --btn-bg-active: var(--theme-color-surface-3);
   --btn-shadow: var(--shadow-xs);
 
   display: inline-flex;
@@ -57,7 +57,7 @@ button {
 }
 
 .btn:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--color-focus) 36%, transparent);
+  outline: 3px solid color-mix(in srgb, var(--theme-color-focus) 36%, transparent);
   outline-offset: 2px;
 }
 
@@ -88,46 +88,46 @@ button {
 
 /* Variants */
 .btn-primary {
-  --btn-bg: var(--brand-primary);
-  --btn-text: var(--brand-on-primary);
-  --btn-border: var(--brand-primary);
-  --btn-bg-hover: var(--brand-primary-hover);
-  --btn-bg-active: var(--brand-primary-active);
-  --btn-shadow: 0 6px 18px color-mix(in srgb, var(--brand-primary) 22%, transparent);
+  --btn-bg: var(--theme-brand-primary);
+  --btn-text: var(--theme-brand-on-primary);
+  --btn-border: var(--theme-brand-primary);
+  --btn-bg-hover: var(--theme-brand-primary-hover);
+  --btn-bg-active: var(--theme-brand-primary-active);
+  --btn-shadow: 0 6px 18px color-mix(in srgb, var(--theme-brand-primary) 22%, transparent);
 }
 
 .btn-secondary {
-  --btn-bg: var(--brand-secondary);
-  --btn-text: var(--color-text);
-  --btn-border: var(--brand-secondary-strong);
-  --btn-bg-hover: var(--brand-secondary-strong);
-  --btn-bg-active: var(--brand-secondary);
+  --btn-bg: var(--theme-brand-secondary);
+  --btn-text: var(--theme-color-text);
+  --btn-border: var(--theme-brand-secondary-strong);
+  --btn-bg-hover: var(--theme-brand-secondary-strong);
+  --btn-bg-active: var(--theme-brand-secondary);
 }
 
 .btn-outline {
   --btn-bg: transparent;
-  --btn-text: var(--color-text);
-  --btn-border: var(--color-border-strong);
-  --btn-bg-hover: var(--color-surface-2);
-  --btn-bg-active: var(--color-surface-3);
+  --btn-text: var(--theme-color-text);
+  --btn-border: var(--theme-color-border-strong);
+  --btn-bg-hover: var(--theme-color-surface-2);
+  --btn-bg-active: var(--theme-color-surface-3);
   --btn-shadow: none;
 }
 
 .btn-ghost {
   --btn-bg: transparent;
-  --btn-text: var(--color-text-secondary);
+  --btn-text: var(--theme-color-text-secondary);
   --btn-border: transparent;
-  --btn-bg-hover: var(--color-surface-2);
-  --btn-bg-active: var(--color-surface-3);
+  --btn-bg-hover: var(--theme-color-surface-2);
+  --btn-bg-active: var(--theme-color-surface-3);
   --btn-shadow: none;
 }
 
 .btn-danger {
-  --btn-bg: var(--color-danger);
-  --btn-text: #ffffff;
-  --btn-border: var(--color-danger);
-  --btn-bg-hover: color-mix(in srgb, var(--color-danger) 88%, #000000);
-  --btn-bg-active: color-mix(in srgb, var(--color-danger) 78%, #000000);
+  --btn-bg: var(--theme-color-danger);
+  --btn-text: var(--theme-color-text-inverse);
+  --btn-border: var(--theme-color-danger);
+  --btn-bg-hover: var(--theme-color-danger-hover);
+  --btn-bg-active: var(--theme-color-danger-active);
 }
 
 .btn-icon {
@@ -144,10 +144,10 @@ button {
 .textarea,
 .select {
   width: 100%;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--theme-color-border);
   border-radius: var(--radius-md);
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--theme-color-surface);
+  color: var(--theme-color-text);
   box-shadow: var(--shadow-xs);
   outline: none;
   transition:
@@ -170,13 +170,13 @@ button {
 
 .input::placeholder,
 .textarea::placeholder {
-  color: var(--color-text-muted);
+  color: var(--theme-color-text-muted);
 }
 
 .input:hover:not(:disabled),
 .textarea:hover:not(:disabled),
 .select:hover:not(:disabled) {
-  border-color: var(--color-border-strong);
+  border-color: var(--theme-color-border-strong);
 }
 
 .input:focus,
@@ -185,15 +185,15 @@ button {
 .input:focus-visible,
 .textarea:focus-visible,
 .select:focus-visible {
-  border-color: var(--color-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 18%, transparent);
+  border-color: var(--theme-color-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-color-focus) 18%, transparent);
 }
 
 .input:disabled,
 .textarea:disabled,
 .select:disabled {
-  background: var(--color-surface-2);
-  color: var(--color-text-muted);
+  background: var(--theme-color-surface-2);
+  color: var(--theme-color-text-muted);
   cursor: not-allowed;
   opacity: 0.64;
 }
@@ -201,14 +201,14 @@ button {
 .input[aria-invalid="true"],
 .textarea[aria-invalid="true"],
 .select[aria-invalid="true"] {
-  border-color: var(--color-danger);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 14%, transparent);
+  border-color: var(--theme-color-danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-color-danger) 14%, transparent);
 }
 
 .input-success,
 .textarea-success,
 .select-success {
-  border-color: var(--color-success);
+  border-color: var(--theme-color-success);
 }
 
 .field {
@@ -217,7 +217,7 @@ button {
 }
 
 .field-label {
-  color: var(--color-text);
+  color: var(--theme-color-text);
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -229,9 +229,9 @@ button {
 }
 
 .field-help {
-  color: var(--color-text-muted);
+  color: var(--theme-color-text-muted);
 }
 
 .field-error {
-  color: var(--color-danger);
+  color: var(--theme-color-danger);
 }
