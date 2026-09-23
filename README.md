@@ -4,7 +4,7 @@ Hackathon team repository for KazAST-AI
 
 # KazAST-AI
 
-Стартовый каркас для хакатонного проекта: Vue 3 + Vite на фронтенде и Node.js + Express на бэкенде. База данных пока не подключена.
+Проект хакатона: Vue 3 + Vite на фронтенде, Node.js + Express на бэкенде и PostgreSQL для хранения задач, команд и откликов.
 
 ## Стек
 
@@ -12,7 +12,7 @@ Hackathon team repository for KazAST-AI
 - **Backend:** Node.js, Express
 - **Контейнеризация:** Docker, Docker Compose
 - **AI-интеграция:** OpenAI API (`openai` SDK)
-- **База данных:** пока не выбрана
+- **База данных:** PostgreSQL 16, драйвер `pg`, SQL-миграции
 
 ## Запуск
 
@@ -26,6 +26,23 @@ docker compose up --build
 - API: http://localhost:3000/api/health
 
 Изменения в `frontend/` и `backend/` подхватываются в режиме разработки. Остановка: `Ctrl+C`, затем `docker compose down`.
+
+PostgreSQL запускается автоматически; миграции применяются перед запуском API. Данные сохраняются в Docker volume. API `/api/health` проверяет доступность БД.
+
+Если зависимости уже установлены в старом Docker volume, перед запуском обновите их:
+
+```sh
+docker compose run --rm --no-deps backend npm ci
+```
+
+После запуска загрузите синтетические данные и выполните проверки:
+
+```sh
+docker compose exec backend npm run db:seed
+docker compose exec backend npm run test:db
+```
+
+Схема данных, формула рейтинга, правила публикации и тестовые сценарии описаны в [backend/db/README.md](backend/db/README.md). Реализован API создания, чтения, редактирования и подтверждения задач. Контракт и пример для фронтенда — [backend/API.md](backend/API.md). В локальном Compose демо-пользователь выбирается заголовком `X-User-Id`; это не production-авторизация. API публикации и откликов добавляется следующим этапом.
 
 ## OpenAI API
 
@@ -66,6 +83,6 @@ cp .env.example .env
 └── README.md
 ```
 
-Добавляйте предметные модули в `backend/src` и `frontend/src`, когда станет ясна задача. Настройки подключения к будущей базе можно вынести в переменные окружения Compose.
+Настройки PostgreSQL приведены в `.env.example`. Миграции находятся в `backend/db/migrations`, подключение — в `backend/src/db`.
 
 Правила именования и разработки фронтенда описаны в [FRONTEND_GUIDE.md](FRONTEND_GUIDE.md).
