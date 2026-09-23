@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { demoAuth } from '../middleware/demo-auth.js';
 import { taskService, validateBody, validateUuid } from '../services/tasks.js';
 import { getCatalog, getPublishedTask } from '../services/catalog.js';
+import { getMyTasks } from '../services/my-tasks.js';
 
 export function tasksRouter(db, demoAuthEnabled) {
   const router = Router();
@@ -9,6 +10,7 @@ export function tasksRouter(db, demoAuthEnabled) {
   router.get('/', async (req, res) => res.json(await getCatalog(db, req.query)));
   router.get('/:id/published', async (req, res) => res.json(await getPublishedTask(db, validateUuid(req.params.id))));
   router.use(demoAuth(db, demoAuthEnabled));
+  router.get('/mine', async (req, res) => res.json(await getMyTasks(db, req.user.id, req.query)));
   router.post('/', async (req, res) => {
     const result = await service.create(req.user.id, validateBody(req.body, 'create'));
     res.status(201).location(`/api/tasks/${result.task.id}`).json(result);

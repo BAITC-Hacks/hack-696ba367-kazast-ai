@@ -79,7 +79,7 @@ function representation(task, confirmation) {
     has_unconfirmed_changes: !confirmation || !sameCard(cardOf(task), confirmation.card),
   };
 }
-async function transaction(db, action) {
+export async function transaction(db, action) {
   const client = await db.connect();
   try {
     await client.query('BEGIN');
