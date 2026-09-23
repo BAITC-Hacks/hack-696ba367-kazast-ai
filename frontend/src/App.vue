@@ -1,19 +1,11 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-const apiStatus = ref('Проверяем API…');
-const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const store = useStore();
+const api_status = computed(() => store.state.app_status.api_status);
 
-onMounted(async () => {
-  try {
-    const response = await fetch(`${apiUrl}/api/health`);
-    if (!response.ok) throw new Error('API unavailable');
-    const data = await response.json();
-    apiStatus.value = data.status === 'ok' ? 'API доступен' : 'API ответил';
-  } catch {
-    apiStatus.value = 'API пока недоступен';
-  }
-});
+onMounted(() => store.dispatch('app_status/check_api_status'));
 </script>
 
 <template>
@@ -23,7 +15,7 @@ onMounted(async () => {
       <p class="eyebrow">ОБРАЗОВАТЕЛЬНЫЙ ХАКАТОН</p>
       <h1>KazAST-AI</h1>
       <p class="intro">Стартовая площадка проекта готова.</p>
-      <div class="status"><span class="dot"></span>{{ apiStatus }}</div>
+      <div class="status"><span class="dot"></span>{{ api_status }}</div>
       <p class="hint">Когда появится постановка задачи, здесь начнётся ваш продукт.</p>
     </div>
   </main>
