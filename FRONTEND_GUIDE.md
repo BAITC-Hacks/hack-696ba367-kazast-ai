@@ -5,24 +5,28 @@
 ## Стек и разделение файлов
 
 - Используем JavaScript, Vue 3 и Vite.
-- Разделяем ответственность: разметка — Vue-шаблон, логика — JavaScript, оформление — CSS.
+- Разделяем ответственность: разметка — Vue-шаблон, логика — JavaScript, оформление — единый CSS-пакет в `frontend/style/`.
 - `index.html` — только HTML-оболочка приложения и подключение `src/main.js`.
-- Vue-компоненты храним в `.vue`: HTML-разметку — в `<template>`, логику — в отдельном JS-файле, стили — в отдельном CSS-файле. В `.vue` подключаем их через `<script src="./component_name.js"></script>` и `<style src="./component_name.css"></style>`. Не пишем стили inline и не помещаем большие блоки логики в компонент.
-- Каждый компонент размещаем в отдельной папке или паре файлов, чтобы связанные шаблон, логика и стили было легко найти.
+- Vue-компоненты храним в `.vue`: HTML-разметку — в `<template>`, логику — в JavaScript. Не добавляем `<style>` в компонент и не создаём рядом с компонентом отдельный CSS-файл.
+- Единственное место для CSS проекта — `frontend/style/`. Общие токены находятся в `tokens.css`, формы и кнопки — в `controls.css`, базовые элементы и layout — в `global.css`. Эти три файла подключаются один раз из `src/main.js` в порядке: tokens, controls, global.
+- Если компоненту нужен новый стиль, сначала соберите его из существующих классов пакета. Если общего класса не хватает, добавьте его в `frontend/style/` и подключите в пакете, а не пишите CSS в компоненте.
+- Не используйте атрибут `style="..."`, `<style>`-блоки, CSS-файлы вне `frontend/style/` или локальные переопределения стилей из компонента.
+- В стилях компонентов используйте только custom properties `--theme-*`, объявленные в `frontend/style/tokens.css`; не задавайте цвета литералами и не вводите новые цветовые переменные локально.
+- Для всех кнопок используйте единый набор классов из `frontend/style/controls.css`: базовый `.btn` и варианты `.btn-primary`, `.btn-secondary`, `.btn-outline`, `.btn-ghost`, `.btn-danger`; для размера и ширины — `.btn-sm`, `.btn-lg`, `.btn-block`. Не создавайте собственные стили кнопок или переопределения кнопок в компонентах.
 
 Пример структуры:
 
 ```text
 frontend/src/
 ├── main.js
-├── app.vue
-├── app.css
+├── App.vue
+├── router/
+│   └── index.js
 ├── components/
 │   └── user_card/
 │       ├── user_card.vue
-│       ├── user_card.js
-│       └── user_card.css
-├── views/
+│       └── user_card.js
+├── pages/
 │   └── home_page.vue
 └── store/
     ├── index.js
@@ -30,22 +34,35 @@ frontend/src/
         └── user_profile.js
 ```
 
-Пример `user_card.vue` содержит только шаблон и подключения:
+```text
+frontend/style/
+├── tokens.css
+├── controls.css
+└── global.css
+```
+
+Пример `user_card.vue` содержит только шаблон:
 
 ```vue
 <template>
   <article class="user_card">{{ user_name }}</article>
 </template>
-
-<script src="./user_card.js"></script>
-<style src="./user_card.css"></style>
 ```
 
-В `user_card.js` экспортируйте Vue-компонент (`export default { ... }`); разметку и стили храните в соответствующих файлах.
+Логику компонента экспортируйте из `user_card.js`; оформление задавайте только классами из `frontend/style/`.
+
+## Страницы и маршруты
+
+- Страницы приложения размещаем в `src/pages/`, переиспользуемые UI-компоненты — в `src/components/`, таблицу маршрутов — в `src/router/index.js`.
+- Навигацию между страницами реализуем через Vue Router: обычные ссылки — `<RouterLink>`, программные переходы — `router.push()`. Не переключаем страницы вручную через `window.location`.
+- Новый экран сначала добавляем как страницу, затем регистрируем отдельным именованным маршрутом в `src/router/index.js`.
+- Vue Router уже добавлен в зависимости фронтенда и подключается в `src/main.js` через `app.use(router)`.
 
 ## Именование
 
-- Используем `snake_case` для файлов, переменных, функций, Vuex-модулей, CSS-классов и CSS-переменных: `user_profile.js`, `load_user()`, `.user_card`, `--brand_color`.
+- Используем `snake_case` для файлов, переменных, функций, Vuex-модулей и собственных CSS-классов: `user_profile.js`, `load_user()`, `.user_card`.
+- Имена дизайн-токенов — только из пакета `frontend/style/tokens.css` и в формате `--theme-*`, например `--theme-brand-primary`, `--theme-color-bg`. Цветовые токены именуем в kebab-case, как принято для CSS custom properties.
+- Имена классов кнопок берём без изменений из `frontend/style/controls.css` (`.btn-primary` и другие варианты); это публичный API дизайн-системы.
 - Имена должны описывать назначение. Булевы значения начинаем с `is_`, `has_` или `can_`: `is_loading`, `has_error`.
 - Для тегов компонентов в шаблоне используем kebab-case, как принято для HTML: `<user-card />`. Файл компонента при этом остаётся в `snake_case`.
 - Не вводим сокращения, понятные только автору; общепринятые `id`, `url`, `api` допустимы.

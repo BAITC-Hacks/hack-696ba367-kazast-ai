@@ -48,10 +48,17 @@ cp .env.example .env
 │   ├── Dockerfile
 │   └── package.json
 ├── frontend/
+│   ├── style/
+│   │   ├── tokens.css
+│   │   ├── controls.css
+│   │   └── global.css
 │   ├── src/
 │   │   ├── App.vue
 │   │   ├── main.js
-│   │   └── style.css
+│   │   ├── router/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   └── store/
 │   ├── Dockerfile
 │   ├── index.html
 │   └── package.json
